@@ -28,12 +28,20 @@ class Painter:
         self.targetCanvas.pack(side='left')
         self.bestCanvas = Canvas(window, width=PIC_W, height=PIC_H)
         self.bestCanvas.pack(side='left')
+        self.currentCanvas = Canvas(window, width=PIC_W, height=PIC_H)
+        self.currentCanvas.pack(side='left')
     
     def update(self):
-        self.population.evolve()
-        image = ImageTk.PhotoImage(self.population.bestArtist().image)
-        self.bestCanvas.create_image(PIC_W/2, PIC_H/2, image=image)
-        self.bestCanvas.update_idletasks()
+        if self.population.evolve():
+            self.bestImage = ImageTk.PhotoImage(self.population.bestArtist().image)
+            self.bestCanvas.create_image(PIC_W/2, PIC_H/2, image=self.bestImage)
+            self.bestCanvas.update_idletasks()
+        else:
+            self.currentImage = ImageTk.PhotoImage(self.population.artist.image)
+            self.currentCanvas.create_image(PIC_W/2, PIC_H/2, image=self.currentImage)
+            self.currentCanvas.update_idletasks()
+            self.population.unevolve()
+
         root.after(0, self.update)
 
 
@@ -62,10 +70,15 @@ class Population:
 
     def evolve(self):
         oldFitness = self.artist.fitness
-        mutationCommands = self.artist.mutate()
-        [m.execute() for m in mutationCommands]
+        self.mutationCommands = self.artist.mutate()
+        [m.execute() for m in self.mutationCommands]
         if self.artist.fitness > oldFitness:
-            [c.undo() for c in mutationCommands] 
+            return False
+        return True
+
+    def unevolve(self):
+        if self.mutationCommands:
+            [c.undo() for c in self.mutationCommands] 
 
     def bestArtist(self):
         return self.artist
@@ -328,7 +341,7 @@ def runTests():
 #runTests()
 
 root = Tk()
-root.geometry(str(PIC_W*2)+'x'+str(PIC_H))
+root.geometry(str(PIC_W*3)+'x'+str(PIC_H))
 app = Painter(root)
 root.after(0, app.update)
    
