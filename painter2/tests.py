@@ -54,11 +54,12 @@ def testImageCreation():
 	image = ImageTools.imageFromDna(dna)	
 	image.show()
 
-def testDnaSplice():
+def testDnaSpliceValidLength():
 	mother = Dna(3, 3)
 	father = Dna(3, 3)
 	child = mother.splice(father)
 	assert len(child.genes) == len(mother.genes)
+
 
 Dna.imgSize = 256
 testDnaSize()
@@ -67,4 +68,4 @@ testIndexCategorisation()
 testMutationRanges()
 testShapeExtraction()
 testImageCreation()
-testDnaSplice()
+testDnaSpliceValidLength()

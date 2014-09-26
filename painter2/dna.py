@@ -31,14 +31,10 @@ class Dna:
 		coords = zip(self.genes[offset+4 : offset+self.polyDataLen : 2], self.genes[offset+5 : offset+self.polyDataLen : 2])
 		return (colour, coords) 
 
-	def splice(self, dna):
-		assert dna.genes[0] == self.genes[0]
-		assert dna.genes[1] == self.genes[1]
-		child = Dna(dna.genes[0], dna.genes[1])
-		for i in xrange(2, self.length):
-			if randint(0, 1) == 0:
-				numpy.append(child.genes, self.genes[i])
-			else:
-				numpy.append(child.genes, dna.genes[i])
+	def splice(self, other):
+		assert other.genes[0] == self.genes[0]
+		assert other.genes[1] == self.genes[1]
+		child = Dna(self.genes[0], self.genes[1])
+		child.genes = [n for tup in zip(self.genes[::2], other.genes[1::2]) for n in tup]
 		return child
 
