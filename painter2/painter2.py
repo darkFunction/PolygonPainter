@@ -1,35 +1,11 @@
-''' 
-Array format:
-numPolys, numSides, r, g, b, a, x1, y1, x2, y2... r, g, b, a, x1, y1... 
-'''
+from dna import Dna
+from imagetools import ImageTools
+from PIL import Image
+from population import Population
 
-import numpy
-from random import randint
+Dna.imgSize = 256
+targetImage = Image.open('../image.png')
+population = Population(100, targetImage)
+for i in xrange(10):
+	population.evolve()
 
-class Dna:
-	imgSize = 0
-	def __init__(self, numPolys, numSides):
-		self.headerSize = 2
-		self.polyDataLen = 4 + numSides * 2
-		self.length = self.headerSize + (numPolys * self.polyDataLen) 
-		self.genes = numpy.zeros(self.length, dtype=numpy.int)
-		self.genes[0] = numPolys
-		self.genes[1] = numSides
-
-	def mutate(self):
-		index = randint(self.headerSize, self.length-1)
-		if self.indexIsColour(index):
-			self.genes[index] = randint(0, 255)
-		else:
-			self.genes[index] = randint(0, Dna.imgSize)
-				
-	def indexIsColour(self, index):
-		return (index - self.headerSize) % self.polyDataLen < 4
-
-	def shapeAtIndex(self, index):
-		offset = self.headerSize + (index * self.polyDataLen)
-		colour = tuple(self.genes[offset:offset+4])
-		coords = zip(self.genes[offset+4 : offset+self.polyDataLen : 2], self.genes[offset+5 : offset+self.polyDataLen : 2])
-		return (colour, coords) 
-
-	
