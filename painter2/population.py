@@ -6,7 +6,7 @@ class Population:
 	def __init__(self, size, targetImage):
 		self.size = size
 		self.targetImage = targetImage
-		self.artists = [Dna(50, 5) for i in xrange(size)]
+		self.artists = [Dna(size, 5) for i in xrange(size)]
 
 	def luckyIndex(self):
 		return int(triangular(0, self.size-1, 0)) 	# bias towards better fitness
