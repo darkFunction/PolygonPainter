@@ -4,11 +4,12 @@ numPolys, numSides, r, g, b, a, x1, y1, x2, y2... r, g, b, a, x1, y1...
 '''
 
 import numpy
-from random import randint
+from random import randint, randrange
 
 class Dna:
 	imgSize = 0
 	def __init__(self, numPolys, numSides):
+		self.numPolys = numPolys
 		self.headerSize = 2
 		self.polyDataLen = 4 + numSides * 2
 		self.length = self.headerSize + (numPolys * self.polyDataLen) 
@@ -16,11 +17,14 @@ class Dna:
 		self.genes[0], self.genes[1] = numPolys, numSides
 
 	def mutate(self):
-		index = randint(self.headerSize, self.length-1)
-		if self.indexIsColour(index):
-			self.genes[index] = randint(0, 255)
+		if randint(0, 100) == 1:
+			self.swapPolys(randrange(0, self.numPolys), randrange(0, self.numPolys))
 		else:
-			self.genes[index] = randint(0, Dna.imgSize)
+			index = randrange(self.headerSize, self.length)
+			if self.indexIsColour(index):
+				self.genes[index] = randint(0, 255)
+			else:
+				self.genes[index] = randint(0, Dna.imgSize)
 				
 	def indexIsColour(self, index):
 		return (index - self.headerSize) % self.polyDataLen < 4
@@ -42,6 +46,14 @@ class Dna:
 		for i in xrange(self.headerSize, self.length):
 			if not self.indexIsColour(i):
 				self.genes[i] = randint(0, Dna.imgSize)
-				
+
+	def swapPolys(self, indexA, indexB):
+		a = self.polyOffset(indexA)
+		b = self.polyOffset(indexB)
+		p = self.polyDataLen - 4
+		self.genes[a:a+p], self.genes[b:b+p] = self.genes[b:b+p], self.genes[a:a+p]
+
+	def polyOffset(self, index):
+		return self.headerSize + (self.polyDataLen * index) + 4
 				
 

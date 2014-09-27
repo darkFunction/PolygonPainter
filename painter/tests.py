@@ -42,7 +42,7 @@ def testShapeExtraction():
 					1, 2, 3, 4, 5, 6, 
 					255, 0, 0, 255,
 					7, 8, 9, 10, 11, 12]
-	assert sorted(dna.shapeAtIndex(1)) == sorted([(255, 0, 0, 255), [(7, 8), (9, 10), (11, 12)]])
+	assert sorted(dna.polyAtIndex(1)) == sorted([(255, 0, 0, 255), [(7, 8), (9, 10), (11, 12)]])
 
 def testImageCreation():
 	dna = Dna(2, 3)
@@ -60,6 +60,12 @@ def testDnaSpliceValidLength():
 	child = mother.splice(father)
 	assert len(child.genes) == len(mother.genes)
 
+def testDnaPolySwap():
+	dna = Dna(2, 3)
+	dna.genes =      [2, 3, 255, 0, 0, 100, 1, 2, 3, 4, 5, 6, 0, 255, 0, 50, 7, 8, 9, 10, 11, 12]	
+	expectedResult = [2, 3, 255, 0, 0, 100, 7, 8, 9, 10, 11, 12, 0, 255, 0, 50, 1, 2, 3, 4, 5, 6]
+	dna.swapPolys(0, 1)
+	assert not cmp(dna.genes, expectedResult)
 
 Dna.imgSize = 256
 testDnaSize()
@@ -69,3 +75,5 @@ testMutationRanges()
 testShapeExtraction()
 testImageCreation()
 testDnaSpliceValidLength()
+testDnaPolySwap()
+print "Tests passed"
