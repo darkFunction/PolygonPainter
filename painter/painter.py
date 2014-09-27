@@ -6,12 +6,13 @@ from Tkinter import Tk, Canvas
 
 IMG_SIZE = 256
 POPULATION_SIZE = 10
+VERTEX_COUNT = 6
 Dna.imgSize = IMG_SIZE
 targetImage = Image.open('../image.png')
 
 class Painter:
 	def __init__(self, window):
-		self.population = Population(POPULATION_SIZE, targetImage)
+		self.population = Population(POPULATION_SIZE, VERTEX_COUNT, targetImage)
 		self.targetPhoto = ImageTk.PhotoImage(targetImage)
 		self.initWidgets(window)
 		
