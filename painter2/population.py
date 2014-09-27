@@ -6,10 +6,10 @@ class Population:
 	def __init__(self, size, targetImage):
 		self.size = size
 		self.targetImage = targetImage
-		self.artists = [Dna(size, 5) for i in xrange(size)]
+		self.artists = [Dna(50, 5) for i in xrange(size)]
 
 	def luckyIndex(self):
-		return int(triangular(0, self.size-1, 0)) 	# bias towards better fitness
+		return int(triangular(0, self.size, 0)) 	# bias towards better fitness
 
 	def evolve(self):
 		self.newArtists = self.artists[:2] 			# top two always make it
@@ -18,7 +18,13 @@ class Population:
 			child.mutate()
 			self.newArtists.append(child)
 		self.artists = self.newArtists
+		self.sortByFitness()
+
+	def sortByFitness(self):
 		self.artists.sort(key=lambda dna: self.calcFitness(dna))
+	
+	def bestArtist(self):
+		return self.artists[0]
 		
 	def calcFitness(self, dna):
 		image = ImageTools.imageFromDna(dna)
