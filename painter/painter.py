@@ -31,6 +31,7 @@ class Painter:
 		root.after(0, self.update)
 
 root = Tk()
+root.title = "app"
 root.geometry(str(IMG_SIZE*2)+'x'+str(IMG_SIZE))
 app = Painter(root)
 root.after(0, app.update)

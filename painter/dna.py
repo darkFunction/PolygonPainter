@@ -50,10 +50,10 @@ class Dna:
 	def swapPolys(self, indexA, indexB):
 		a = self.polyOffset(indexA)
 		b = self.polyOffset(indexB)
-		p = self.polyDataLen - 4
+		p = self.polyDataLen
 		self.genes[a:a+p], self.genes[b:b+p] = self.genes[b:b+p], self.genes[a:a+p]
 
 	def polyOffset(self, index):
-		return self.headerSize + (self.polyDataLen * index) + 4
+		return self.headerSize + (self.polyDataLen * index)
 				
 
