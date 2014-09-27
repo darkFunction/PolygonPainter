@@ -7,6 +7,7 @@ class Population:
 		self.size = size
 		self.targetImage = targetImage
 		self.artists = [Dna(50, 5) for i in xrange(size)]
+		[a.randomisePolys() for a in self.artists]
 
 	def luckyIndex(self):
 		return int(triangular(0, self.size, 0)) 	# bias towards better fitness

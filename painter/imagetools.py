@@ -7,7 +7,7 @@ class ImageTools:
 	def imageFromDna(dna):
 		image = Image.new('RGB', (Dna.imgSize, Dna.imgSize))
 		for i in xrange(0, dna.genes[0]):
-			shape = dna.shapeAtIndex(i)
+			shape = dna.polyAtIndex(i)
 			if shape[0][3] > 0:
 				ImageDraw.Draw(image, 'RGBA').polygon(shape[1], fill=shape[0])
 		return image

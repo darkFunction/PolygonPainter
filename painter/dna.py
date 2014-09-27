@@ -25,7 +25,7 @@ class Dna:
 	def indexIsColour(self, index):
 		return (index - self.headerSize) % self.polyDataLen < 4
 
-	def shapeAtIndex(self, index):
+	def polyAtIndex(self, index):
 		offset = self.headerSize + (index * self.polyDataLen)
 		colour = tuple(self.genes[offset:offset+4])
 		coords = zip(self.genes[offset+4 : offset+self.polyDataLen : 2], self.genes[offset+5 : offset+self.polyDataLen : 2])
@@ -37,4 +37,11 @@ class Dna:
 		child = Dna(self.genes[0], self.genes[1])
 		child.genes = [n for tup in zip(self.genes[::2], other.genes[1::2]) for n in tup]
 		return child
+
+	def randomisePolys(self):
+		for i in xrange(self.headerSize, self.length):
+			if not self.indexIsColour(i):
+				self.genes[i] = randint(0, Dna.imgSize)
+				
+				
 

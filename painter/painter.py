@@ -5,16 +5,17 @@ from population import Population
 from Tkinter import Tk, Canvas
 
 IMG_SIZE = 256
+POPULATION_SIZE = 10
 Dna.imgSize = IMG_SIZE
 targetImage = Image.open('../image.png')
 
 class Painter:
 	def __init__(self, window):
-		self.population = Population(5, targetImage)
+		self.population = Population(POPULATION_SIZE, targetImage)
+		self.targetPhoto = ImageTk.PhotoImage(targetImage)
 		self.initWidgets(window)
 		
 	def initWidgets(self, window):
-		self.targetPhoto = ImageTk.PhotoImage(targetImage)
 		self.targetCanvas = Canvas(window, width=IMG_SIZE, height=IMG_SIZE)
 		self.targetCanvas.create_image(IMG_SIZE/2, IMG_SIZE/2, image=self.targetPhoto)
 		self.targetCanvas.pack(side='left')
@@ -36,6 +37,4 @@ root.after(0, app.update)
    
 if __name__ == '__main__': 
 	root.mainloop()
-
-
 
