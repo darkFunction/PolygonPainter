@@ -1,8 +1,6 @@
 PolygonPainter
 ==============
 
-![Example](http://notes.darkfunction.com/images/ga3.png)
-
 Inspired by http://rogeralsing.com/2008/12/07/genetic-programming-evolution-of-mona-lisa/
 
 Just learning Python! 
@@ -23,3 +21,6 @@ We initialise a population and run it through an evolution cycle as follows:
 
 That's it! This approach seems to work and it's really hands-off; it just does its thing without any special weightings or guidance. It's also way simpler ;)
  
+![Example](http://notes.darkfunction.com/images/ga3.png)
+
+
