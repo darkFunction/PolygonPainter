@@ -18,9 +18,11 @@ We initialise a population and run it through an evolution cycle as follows:
  - The two fittest pass into the next generation unchanged
  - The rest are bred together in pairs by splicing the DNA sequence to produce an offspring which is then mutated
  - The pairs which are chosen to breed are randomly selected with a bias towards the fittest
-
-That's it! This approach seems to work and it's really hands-off; it just does its thing without any special weightings or guidance. It's also way simpler ;)
  
-![Example](http://notes.darkfunction.com/images/ga3.png)
+## New Improvements 
+ - Mutations are either hard, medium, or soft, and we switch between these levels every 100 generations. *Hard* mutations are the changing of all of a single polygon's properties to new values. *Medium* changes a single parameter in the DNA string to a random value, and *soft* changes a single value by a small amount.
+ - Polygons are initialised around a point with a limited size, to encourage more regular shapes.
+ 
+![Example](http://notes.darkfunction.com/images/ga6.png)
 
 
