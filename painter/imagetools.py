@@ -6,10 +6,11 @@ class ImageTools:
 	@staticmethod
 	def imageFromDna(dna):
 		image = Image.new('RGB', (Dna.imgSize, Dna.imgSize))
-		for i in xrange(0, dna.genes[0]):
-			shape = dna.polyAtIndex(i)
-			if shape[0][3] > 0:
-				ImageDraw.Draw(image, 'RGBA').polygon(shape[1], fill=shape[0])
+		pStart = 4
+		pStop = pStart + dna.numSides * 2
+		for poly in dna.polyGenerator():
+			if poly[3] > 0:
+				ImageDraw.Draw(image, 'RGBA').polygon(list(poly[pStart:pStop]), fill=tuple(poly[0:pStart]))
 		return image
 	
 	@staticmethod

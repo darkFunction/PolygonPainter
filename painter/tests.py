@@ -27,7 +27,7 @@ def testIndexCategorisation():
 def testMutationRanges():
 	dna = Dna(1, 3)
 	for i in xrange(100):
-		dna.mutate()
+		dna.mutate(1)
 	for i in xrange(dna.headerSize, dna.length):
 		gene = dna.genes[i]
 		if dna.indexIsColour(i):

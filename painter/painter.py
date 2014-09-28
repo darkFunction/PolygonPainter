@@ -24,11 +24,13 @@ class Painter:
 		self.bestCanvas.pack(side='left')
 	
 	def update(self):
-		self.population.evolve()
-		image = ImageTools.imageFromDna(self.population.artists[0])
-		self.bestImage = ImageTk.PhotoImage(ImageTools.imageFromDna(self.population.artists[0]))
-		self.bestCanvas.create_image(SIZE/2, SIZE/2, image=self.bestImage)
-		self.bestCanvas.update_idletasks()
+		if self.population.evolve():
+			print "Cycles", self.population.cycles
+			print "Improvements", self.population.improvements
+			image = ImageTools.imageFromDna(self.population.artists[0])
+			self.bestImage = ImageTk.PhotoImage(ImageTools.imageFromDna(self.population.artists[0]))
+			self.bestCanvas.create_image(SIZE/2, SIZE/2, image=self.bestImage)
+			self.bestCanvas.update_idletasks()
 		root.after(0, self.update)
 
 root = Tk()
