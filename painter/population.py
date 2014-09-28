@@ -1,6 +1,6 @@
 from imagetools import ImageTools 
 from dna import Dna
-from random import triangular
+from random import triangular, randint
 
 class Population:
 	def __init__(self, size, polyCount, vertexCount, targetImage):
@@ -16,7 +16,7 @@ class Population:
 		self.newArtists = self.artists[:2] 			# top two always make it
 		while len(self.newArtists) < self.size:
 			child = self.artists[self.luckyIndex()].splice(self.artists[self.luckyIndex()])
-			child.mutate()
+			child.mutate(randint(0, 2))
 			self.newArtists.append(child)
 		self.artists = self.newArtists
 		self.sortByFitness()
