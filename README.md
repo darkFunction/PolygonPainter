@@ -23,7 +23,7 @@ We initialise a population and run it through an evolution cycle as follows:
  - Mutations are either hard, medium, or soft, and we switch between these levels every 100 generations. *Hard* mutations are the changing of all of a single polygon's properties to new values. *Medium* changes a single parameter in the DNA string to a random value, and *soft* changes a single value by a small amount.
  - Polygons are initialised around a point and with a limited size, to encourage regular shapes.
  - DNA is spliced together polygon by polygon as opposed to value by value, since it makes more sense to treat polygons as atomics.
-- Elitism is increased by discarding the bottom few from each generation.
+ - Elitism is increased by discarding the bottom few from each generation.
 
 ![Example](http://notes.darkfunction.com/images/ga6.png)
 
