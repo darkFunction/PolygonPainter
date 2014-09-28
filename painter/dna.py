@@ -4,14 +4,12 @@ numPolys, numSides, r, g, b, a, x1, y1, x2, y2... r, g, b, a, x1, y1...
 '''
 
 import numpy
-from random import randint, randrange, uniform
-from math import pi, cos, sin
+from random import randint, randrange
 
 class Dna:
 	imgSize = 0
 	def __init__(self, numPolys, numSides):
 		self.numPolys = numPolys
-		self.numSides = numSides
 		self.headerSize = 2
 		self.polyDataLen = 4 + numSides * 2
 		self.length = self.headerSize + (numPolys * self.polyDataLen) 
@@ -45,25 +43,10 @@ class Dna:
 		return child
 
 	def randomisePolys(self):
-		for i in xrange(self.numPolys):
-			offset = self.headerSize + (i * self.polyDataLen) + 4 
-			pointsLen = (self.numSides * 2)
-			self.genes[offset : offset + pointsLen] = self.regularPoly(Dna.imgSize / 8)
-	
-	def regularPoly(self, maxSize):
-		# Initialise a poly with limited size and regular shape
-		angles = []
-		r = maxSize / 2
-		centre = (randint(r, Dna.imgSize-r), randint(r, Dna.imgSize-r))
-		for i in xrange(self.numSides):
-			angles.append(uniform(0, pi*2))
-		angles.sort()
-		points = []
-		for a in angles:
-			points.append(centre[0] + (r * cos(a)))
-			points.append(centre[1] + (r * sin(a)))
-		return points
-		
+		for i in xrange(self.headerSize, self.length):
+			if not self.indexIsColour(i):
+				self.genes[i] = randint(0, Dna.imgSize)
+
 	def swapPolys(self, indexA, indexB):
 		a = self.polyOffset(indexA)
 		b = self.polyOffset(indexB)
