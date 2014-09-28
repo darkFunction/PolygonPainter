@@ -3,10 +3,10 @@ from dna import Dna
 from random import triangular
 
 class Population:
-	def __init__(self, size, vertexCount, targetImage):
+	def __init__(self, size, polyCount, vertexCount, targetImage):
 		self.size = size
 		self.targetImage = targetImage
-		self.artists = [Dna(50, vertexCount) for i in xrange(size)]
+		self.artists = [Dna(polyCount, vertexCount) for i in xrange(size)]
 		[a.randomisePolys() for a in self.artists]
 
 	def luckyIndex(self):
