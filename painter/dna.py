@@ -37,11 +37,10 @@ class Dna:
 	def indexIsColour(self, index):
 		return (index - self.headerSize) % self.polyDataLen < 4
 
-	def polyAtIndex(self, index):
-		offset = self.headerSize + (index * self.polyDataLen)
-		colour = tuple(self.genes[offset:offset+4])
-		coords = zip(self.genes[offset+4 : offset+self.polyDataLen : 2], self.genes[offset+5 : offset+self.polyDataLen : 2])
-		return (colour, coords) 
+	def polyGenerator(self):
+			for i in xrange(self.numPolys):
+				offset = self.headerSize + (i * self.polyDataLen)
+				yield self.genes[offset : offset + self.polyDataLen]
 
 	def splice(self, other):
 		assert other.genes[0] == self.genes[0]
