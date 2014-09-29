@@ -13,7 +13,7 @@ class Population:
 		self.mutationLevel = 0
 
 	def luckyIndex(self):
-		bottom = self.size / 5, 							# knock off the bottom 
+		bottom = self.size / 5	 							# knock off the bottom 
 		return int(triangular(0, self.size - bottom, 0)) 	# bias towards better fitness with triangle random tending to 0
 
 	def evolve(self):
