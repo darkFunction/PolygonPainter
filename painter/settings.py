@@ -1,7 +1,8 @@
 class Settings:
+	targetImageName = '../image.png'
 	imageSize = 256
 	populationSize = 20
-	polyCount = 100
-	vertexCount = 5
+	polyCount = 50 
+	vertexCount = 6
 
 

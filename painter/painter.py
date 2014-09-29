@@ -8,7 +8,7 @@ from settings import Settings
 SIZE = Settings.imageSize
 
 Dna.imgSize = SIZE
-targetImage = Image.open('../image.png')
+targetImage = Image.open(Settings.targetImageName)
 
 class Painter:
 	def __init__(self, window):
